@@ -1,18 +1,20 @@
+import os
+import re
+import time
+import json
+
+import sqlite3
 import requests
 from bs4 import BeautifulSoup
-import sqlite3
-import time
 import lxml
-import re
 from datetime import datetime, timedelta
-import json
-import os
 
 
 # Create a new log file
 script_path = os.path.realpath(__file__)
 script_dir = os.path.dirname(script_path)
 log_id = 1
+
 while os.path.exists(os.path.join(script_dir, f"log_{log_id}.txt")):
     log_id += 1
 
@@ -21,7 +23,7 @@ log_file = open(log_file_path, "w")
 
 
 # Create SQLite database and tables
-conn = sqlite3.connect(script_dir + 'github_repos.db')
+conn = sqlite3.connect(script_dir + '/github_repos.db')
 cursor = conn.cursor()
 
 cursor.execute('''
@@ -63,6 +65,7 @@ CREATE TABLE IF NOT EXISTS ranking (
 ''')
 
 conn.commit()
+
 
 # Function to get data from the page
 def get_data_from_page(page_id):
@@ -231,9 +234,9 @@ while error_count < 5:
         log_message = f"Page {page_id} Error: {str(e)}"
         log_file.write(log_message + "\n")
 
-    
     page_id += 1
     time.sleep(1)  # delay to handle server request limits
+
 
 # Close the log file and database connection
 log_file.close()

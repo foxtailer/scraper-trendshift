@@ -22,3 +22,11 @@ The data is organized into three tables: **language**, **ranking**, and **reposi
 ### `repository` Table
 | id | name | github | website | description | trendshift_id | lang_id | stats | forks | created_at | updated_at |
 
+
+# Run
+
+1. Navigate to the `scraper` folder.
+2. Create a Docker image using the command: `docker build -t scraper:01 .`
+3. Run the container with the following command: `docker run --rm -v /host/folder:/app scraper:01`
+
+The log and database files will be saved in `/host/folder`.
